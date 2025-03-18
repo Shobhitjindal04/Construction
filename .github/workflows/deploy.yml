@@ -12,8 +12,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Install dependencies and build
+      run: |
+        cd client
+        npm install
+        npm run build
+        mv dist ../docs  # Move the build output to /docs
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: client  # Deploys the 'client' folder
+        folder: docs  # Deploys the /docs folder
